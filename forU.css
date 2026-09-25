@@ -1,0 +1,826 @@
+/* ==========================================================================
+   1. GLOBAL RESETS & CUSTOM TYPOGRAPHY
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "MyCustomFont2", cursive;
+}
+
+body {
+    background: #1A0917;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'MyCustomFont1';
+    src: url(./font/U-Moe-Handwritten-Font.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyCustomFont2';
+    src: url(./font/MasterpieceYayChanZin.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ==========================================================================
+   2. HEADER & NAVIGATION
+   ========================================================================== */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bolder;
+    color: #1A0917;
+    pointer-events: none;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #1A0917;
+    padding: 6px 15px;
+    border-radius: 10px;
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+.navigation a:hover {
+    background: #FFCA95;
+    color: #D0311E;
+}
+
+/* ==========================================================================
+   3. ENTRANCE OVERLAY
+   ========================================================================== */
+#entrance-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./images/my-world.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.entrance-card {
+    text-align: center;
+    padding: 30px;
+    background: #1a091795;
+    border: 3px solid #FF7440;
+    border-radius: 20px;
+    box-shadow: 6px 6px 0px #1A0917;
+}
+
+.entrance-card h2 {
+    font-family: "MyCustomFont2", cursive;
+    color: #FCE0D1;
+    margin-bottom: 20px;
+}
+
+#enter-btn {
+    padding: 12px 24px;
+    font-weight: bold;
+    font-family: "MyCustomFont1", cursive;
+    background-color: #FCE0D1;
+    border: 2px solid #1A0917;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #1A0917;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#enter-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0px #1A0917;
+}
+
+#entrance-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ==========================================================================
+   4. THE PARALLAX ENGINE (Horizon Fixes)
+   ========================================================================== */
+.parallax {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FCE3D2;
+}
+
+.parallax img {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+#background {
+    top: 0;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+#mountain {
+    top: auto;
+    bottom: 250px;
+    height: auto;
+    z-index: 2;
+}
+
+#tree3 {
+    top: auto;
+    bottom: 90px;
+    height: auto;
+    z-index: 3;
+}
+
+#tree2 {
+    top: auto;
+    bottom: 150px;
+    height: auto;
+    z-index: 4;
+}
+
+#intro {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    bottom: 200px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#intro h1 {
+    font-size: 4.5vw;
+    font-weight: 900;
+    font-family: 'MyCustomFont2', cursive;
+    color: #1A0917;
+    margin-bottom: 5px;
+}
+
+#intro span {
+    display: block;
+    font-size: 2.2rem;
+    font-family: 'MyCustomFont1', cursive;
+    color: #1A0917;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+#intro p {
+    font-size: 1.5rem;
+    font-family: 'MyCustomFont2', cursive;
+    font-weight: bolder;
+    color: #1A0917;
+    line-height: 1.4;
+}
+
+#tree1 {
+    top: auto;
+    bottom: 0;
+    height: auto;
+    z-index: 6;
+}
+
+#groundtree {
+    top: auto;
+    bottom: 0;
+    height: auto;
+    z-index: 7;
+}
+
+/* ==========================================================================
+   5. ALTERNATING SIDE-BY-SIDE STORY LAYOUT
+   ========================================================================== */
+.sec {
+    position: relative;
+    background: #1A0A17;
+    padding: 100px 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 120px;
+}
+
+.content-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1250px;
+    gap: 40px;
+}
+
+.content-container:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.story-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+
+.story-card .date {
+    font-size: 0.9rem;
+    color: #FFCA95;
+    font-weight: bold;
+    margin-bottom: 12px;
+    font-family: "MyCustomFont2", cursive;
+    letter-spacing: 1px;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+}
+
+.story-card h2 {
+    font-size: 1.5em;
+    color: #FFCA95;
+    font-family: "MyCustomFont2", cursive;
+    line-height: 1.4;
+    padding: 0 20px;
+    text-align: center;
+    padding: 20px 20px 20px 20px;
+}
+
+.story-card p {
+    font-size: 1.2em;
+    color: #FCE3D2;
+    font-weight: 300;
+    line-height: 1.8;
+    font-family: "MyCustomFont1", cursive;
+    text-align: justify;
+}
+
+.story-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================================================
+   6. SCRAPBOOK POLAROID STYLING
+   ========================================================================== */
+.polaroid {
+    position: relative;
+    background: #F3E3D0;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(245, 240, 230, 0.3) 100%);
+    padding: 12px 12px 48px 12px;
+    border-radius: 2px;
+    max-width: 365px;
+    width: 100%;
+    box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.45), 0 3px 6px rgba(0, 0, 0, 0.22);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 3;
+}
+
+.polaroid::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    width: 100px;
+    height: 54px;
+    background-color: rgb(252, 238, 188);
+    backdrop-filter: blur(2px);
+    border-left: 2px dotted rgba(0, 0, 0, 0.05);
+    border-right: 2px dotted rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 4px rgba(255, 255, 255, 0.84);
+    z-index: 4;
+}
+
+.polaroid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 2;
+    border-radius: inherit;
+}
+
+.polaroid.tilt-left { transform: rotate(-3deg) !important; }
+.polaroid.tilt-left::before { transform: translateX(-50%) rotate(3deg) !important; }
+.polaroid.tilt-right { transform: rotate(3deg) !important; }
+.polaroid.tilt-right::before { transform: translateX(-50%) rotate(-3deg) !important; }
+
+.polaroid:hover {
+    transform: scale(1.06) rotate(0deg) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65) !important;
+    z-index: 10;
+}
+
+.polaroid:hover::before {
+    transform: translateX(-50%) rotate(0deg) !important;
+}
+
+/* ==========================================================================
+   7. CUSTOM AESTHETIC MUSIC WIDGET (DESKTOP DEFAULT)
+   ========================================================================== */
+.custom-music-player {
+    position: fixed;
+    top: 20px;
+    right: 10px ;
+    z-index: 9999;
+    width: 250px;
+    height: auto;
+    padding: 6px;
+    background-color: #FF9F43;
+    border: 2px solid #1A0917;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #1A0917;
+    
+    /* Fade-in Animation Defaults */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 20s ease, visibility 10s ease, transform 0.3s ease;
+}
+
+.custom-music-player.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-music-player:hover {
+    transform: translateY(-3px);
+}
+
+.player-inner-card {
+    background-color: #FDFBF7;
+    border: 2px solid #1A0917;
+    border-radius: 11px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.player-top-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.album-art-square {
+    width: 40px;
+    height: 40px;
+    background-image: url('./images/song-cover.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #1A0917;
+    border-radius: 4px;
+}
+
+.player-meta-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.player-label {
+    font-size: 0.9em;
+    font-weight: 900;
+    color: #1A0917;
+    font-family: 'MyCustomFont2', cursive;
+    display: block;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-label:hover {
+    max-width: 300px;
+    text-overflow: clip;
+}
+
+.player-timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-stamp {
+    font-size: 0.75em;
+    font-weight: bold;
+    color: #1A0917;
+    min-width: 26px;
+}
+
+.timeline-slider-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-slider-wrapper input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: #FFD2D2;
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
+
+.timeline-slider-wrapper input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FDFBF7;
+    border: 3px solid #FF9F43;
+    box-shadow: 0 0 0 1.5px #1A0917;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.timeline-slider-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.custom-track-fill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    background-color: #FF7675;
+    border-radius: 2px 0 0 2px;
+    width: 0%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.player-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-icon-btn {
+    background: none;
+    border: none;
+    color: #1A0917;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-btn svg {
+    transition: color 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 16px;
+    height: 16px;
+}
+
+.heart-btn.active svg {
+    color: #FF4757;
+    filter: drop-shadow(0px 2px 4px rgba(255, 71, 87, 0.3));
+}
+
+.heart-btn:active svg {
+    transform: scale(0.8);
+}
+
+.skip-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.right-spacer-block {
+    width: 20px;
+}
+
+.playback-center-switches {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.primary-play-trigger {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #2ECC71;
+    border: 2px solid #1A0917;
+    color: #1A0917;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 0px #1A0917;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.primary-play-trigger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0px #1A0917;
+}
+
+.primary-play-trigger:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0px #1A0917;
+}
+
+.primary-play-trigger svg {
+    width: 14px;
+    height: 14px;
+    margin-left: 1px;
+}
+
+/* ==========================================================================
+   8. TABLET RESPONSIVE BREAKPOINT (Max-width: 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 5%;
+    }
+
+    .title {
+        font-size: 1.6em;
+    }
+
+    .parallax {
+        aspect-ratio: 4 / 3;
+    }
+
+    #mountain { bottom: 180px; }
+    #tree3 { bottom: 60px; }
+    #tree2 { bottom: 100px; }
+
+    #intro h1 { font-size: 5.5vw; }
+    #intro span { font-size: 3.5vw; }
+    #intro p { font-size: 2vw; }
+
+    .sec {
+        padding: 80px 6%;
+        gap: 80px;
+    }
+
+    .content-container {
+        gap: 40px;
+    }
+
+    .story-card h2 { font-size: 1.7em; }
+    .story-card p { font-size: 1.15em; }
+}
+
+/* ==========================================================================
+   9. MOBILE RESPONSIVE BREAKPOINT (Max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 4%;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 1.4em;
+    }
+
+    .navigation a {
+        font-size: 0.9em;
+        padding: 4px 10px;
+        margin: 0 4px;
+    }
+
+    .parallax {
+        aspect-ratio: 1 / 1;
+    }
+
+    #mountain {
+        bottom: 105px;
+        width: 140%;
+        left: -20%;
+    }
+
+    #tree3 { bottom: 40px; width: 120%; left: -10%; }
+    #tree2 { bottom: 70px; width: 120%; left: -10%; }
+    #tree1, #groundtree { width: 120%; left: -10%; }
+
+    #intro {
+        top: 35%;
+        width: 90%;
+    }
+
+    #intro h1 { font-size: 1.4em; }
+    #intro span { font-size: 1.3em; margin-bottom: 8px; }
+    #intro p { font-size: 0.85em; color: #1A0A17; margin-top: 25px; }
+
+    .sec {
+        padding: 60px 20px;
+        gap: 70px;
+    }
+
+    /* Clean Vertical Journal Stack Layout */
+    .content-container,
+    .content-container:nth-child(even) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 15px !important;
+        width: 100% !important;
+        padding: 0 !important;
+        text-align: center !important;
+    }
+
+    .story-card {
+        display: contents !important;
+    }
+
+    .story-card h2 {
+        order: 2 !important;
+        font-size: 1.3em !important;
+        margin: 0 0 4px 0 !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    .story-card .date {
+        order: 1 !important;
+        font-size: 0.85em !important;
+        margin: 0 0 10px 0 !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    .story-image {
+        order: 3 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 10px 0 !important;
+    }
+
+    .polaroid {
+        position: relative !important;
+        max-width: 350px !important;
+        width: 100% !important;
+        padding: 0 !important;
+        background: transparent !important;
+        overflow: hidden !important;
+        transform: none !important;
+        margin: 10px auto !important;
+        border-radius: 10px;
+        border: 4px solid #FFCA95;
+    }
+
+    .polaroid img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        border: none !important;
+    }
+
+    .story-card p {
+        order: 4 !important;
+        font-size: 1.1em !important;
+        line-height: 1.6 !important;
+        text-align: justify !important;
+        width: 95% !important;
+        margin: 10px 0 0 0 !important;
+    }
+
+    .polaroid::before,
+    .polaroid.tilt-left::before,
+    .polaroid.tilt-right::before {
+        display: none !important;
+        content: none !important;
+    }
+
+    .polaroid.tilt-left, .polaroid.tilt-right {
+        transform: rotate(0deg) !important;
+    }
+
+    /* 📱 ULTRA-COMPACT SINGLE ROW MOBILE MUSIC PLAYER */
+    .custom-music-player {
+        position: absolute !important;
+        top: 5px !important;         /* Anchored right below the top navigation text */
+        right: 4% !important;
+        bottom: auto !important;
+        left: auto;
+        
+        width: 190px !important;       /* Shrunk down nicely to stay out of the center text field */
+        padding: 3px !important;
+        border-radius: 10px !important;
+        box-shadow: 3px 3px 0px #1A0917 !important;
+        
+        opacity: 0.5 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .custom-music-player:hover {
+        transform: none !important;
+    }
+
+    /* Force the items inside the card to layout as a single horizontal line */
+    .player-inner-card {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 4px 6px !important;
+        gap: 6px !important;
+        border-radius: 6px !important;
+    }
+
+    .player-top-row {
+        flex: 1 !important;
+        gap: 6px !important;
+    }
+
+    .album-art-square {
+        width: 26px !important;
+        height: 26px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .player-label {
+        font-size: 0.72em !important;
+        max-width: 95px !important;
+    }
+
+    /* Completely hide timeline tracker & non-essential buttons to save height */
+    .player-timeline-row,
+    .heart-btn,
+    .skip-btn,
+    .right-spacer-block {
+        display: none !important;
+    }
+
+    .player-controls-row {
+        display: block !important;
+    }
+
+    .primary-play-trigger {
+        width: 24px !important;
+        height: 24px !important;
+        box-shadow: 0 1.5px 0px #1A0917 !important;
+        flex-shrink: 0 !important;
+    }
+
+    .primary-play-trigger svg {
+        width: 9px !important;
+        height: 9px !important;
+    }
+}
