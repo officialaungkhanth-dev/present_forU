@@ -632,6 +632,18 @@ header {
         gap: 10px;
     }
 
+    .entrance-card {
+        width: 75%;
+    }
+
+    .entrance-card h2 {
+        font-size: 1rem;
+    }
+
+    #enter-btn {
+        color: #1A0917;
+    }
+
     .title {
         font-size: 1.4em;
     }
@@ -667,7 +679,7 @@ header {
 
     .sec {
         padding: 60px 20px;
-        gap: 70px;
+        gap: 150px;
     }
 
     /* Clean Vertical Journal Stack Layout */
@@ -681,6 +693,7 @@ header {
         width: 100% !important;
         padding: 0 !important;
         text-align: center !important;
+
     }
 
     .story-card {
@@ -689,18 +702,30 @@ header {
 
     .story-card h2 {
         order: 2 !important;
-        font-size: 1.3em !important;
-        margin: 0 0 4px 0 !important;
+        font-size: 1.1rem !important;
+        margin: 0!important;
         text-align: center !important;
         width: 100% !important;
+        padding: 0;
+    }
+
+    .story-card p {
+        order: 4 !important;
+        font-size: 0.95rem !important;
+        line-height: 2 !important;
+        text-align: justify !important;
+        text-indent: 40px;
+        width: 95% !important;
+        margin: 5px 0 0 0 !important;
     }
 
     .story-card .date {
         order: 1 !important;
-        font-size: 0.85em !important;
+        font-size: 0.6rem !important;
         margin: 0 0 10px 0 !important;
         text-align: center !important;
         width: 100% !important;
+        padding: 0 !important;
     }
 
     .story-image {
@@ -730,15 +755,6 @@ header {
         width: 100% !important;
         height: auto !important;
         border: none !important;
-    }
-
-    .story-card p {
-        order: 4 !important;
-        font-size: 1.1em !important;
-        line-height: 1.6 !important;
-        text-align: justify !important;
-        width: 95% !important;
-        margin: 10px 0 0 0 !important;
     }
 
     .polaroid::before,
