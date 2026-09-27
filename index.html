@@ -61,7 +61,7 @@
 
         <div class="content-container">
             <div class="story-card">
-                <h2>The Day You Enterd My Life</h2>
+                <h2>The Day You Entered My Life</h2>
 
                 <span class="date">June 3, 2023</span>
 
@@ -316,6 +316,7 @@
                     I can still recall everyone's astonished faces when we signed up together.
                     Thank you from the bottom of my heart for standing by my side unconditionally.
                     And thank you once more for allowing me to craft such a sweet memory together, my beloved.
+                </p>
             </div>
 
             <div class="story-image">
@@ -435,7 +436,7 @@
 
         <div class="content-container">
             <div class="story-card">
-                 <h2>On Your 18th Birthday💐</h2>
+                <h2>On Your 18th Birthday💐</h2>
 
                 <span class="date">October 13, 2023</span>
 
@@ -615,7 +616,7 @@
             <div class="story-card">
                 <h2>Your Cold Gaze</h2>
 
-                <span class="date">Demcember 9, 2023</span>
+                <span class="date">December 9, 2023</span>
 
                 <p>ငI wonder what mistake I could have made today...
                     I kept questioning myself this evening.
@@ -635,7 +636,7 @@
             <div class="story-card">
                 <h2>Heartwarming Moments Again 💕</h2>
 
-                <span class="date">Demcember 11, 2023</span>
+                <span class="date">December 11, 2023</span>
 
                 <p>Today, just a day before the school bazaar...
                     I received two notes.
@@ -659,7 +660,7 @@
             <div class="story-card">
                 <h2>Those Lovely Eyes I Adore</h2>
 
-                <span class="date">Demcember 12, 2023</span>
+                <span class="date">December 12, 2023</span>
 
                 <p>Today was still a wonderful memory in its own way.
                     Aside from us not getting the chance to talk, and you being unable to speak to me...
@@ -681,7 +682,7 @@
             <div class="story-card">
                 <h2>How Could I Ever Forget?</h2>
 
-                <span class="date">Demcember 20, 2023</span>
+                <span class="date">December 20, 2023</span>
 
                 <p>Today was another precious memory in this story.
                     The day you addressed me as 'Maung' for the first time.
@@ -747,7 +748,7 @@
             <div class="story-card">
                 <h2>My Love, The Lil' Adventurer 🌸</h2>
 
-                <span class="date">Feburary 1, 2024</span>
+                <span class="date">February 1, 2024</span>
 
                 <p>Today at 3:30 PM... <br>
                     I could hardly believe my eyes.
@@ -920,7 +921,7 @@
             <div class="player-top-row">
                 <div class="album-art-square"></div>
                 <div class="player-meta-info">
-                    <span class="player-label" title="鲜花 (I'm Going To Remember U)">鲜花 (I'm Going To Remember U)</span>
+                    <span class="player-label billboard-text song-title-track">Days We Had</span>
                 </div>
             </div>
 
@@ -944,15 +945,26 @@
                 </button>
 
                 <div class="playback-center-switches">
-                   
+                    <!-- Previous Button -->
+                    <button id="prevBtn" class="action-icon-btn skip-btn" aria-label="Previous Track">
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                        </svg>
+                    </button>
 
+                    <!-- Play/Pause Button -->
                     <button id="masterPlayBtn" class="primary-play-trigger" aria-label="Toggle Play">
                         <svg id="playBtnIcon" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M8 5v14l11-7z" />
                         </svg>
                     </button>
 
-                    
+                    <!-- Next Button -->
+                    <button id="nextBtn" class="action-icon-btn skip-btn" aria-label="Next Track">
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                        </svg>
+                    </button>
                 </div>
 
                 <div class="right-spacer-block"></div>
@@ -961,9 +973,7 @@
         </div>
 
         <!-- Audio node loading your physical audio layout path -->
-        <audio id="timelineAudio" loop>
-            <source src="./audio/鲜花I'm Going To Remember U.mp3" type="audio/mpeg">
-        </audio>
+        <audio id="timelineAudio"></audio>
     </div>
 
     <script src="forU.js"></script>
