@@ -7,10 +7,42 @@ let tree2 = document.getElementById('tree2');
 let tree1 = document.getElementById('tree1');
 let groundtree = document.getElementById('groundtree');
 
+// --- Playlist Configuration ---
+const playlist = [
+    {
+        title: "Days we had",
+        cover: "./images/song-1-cover.jpg",
+        src: "./audio/Days We Had.mp3"
+    },
+    {
+        title: "The fire in your eyes keeps me warm",
+        cover: "./images/song-1-cover.jpg",
+        src: "./audio/Powfu, sleep.ing, Arvnd - the fire in your eyes keeps me warm (Official Audio) .mp3"
+    },
+    {
+        title: "Running through the rain",
+        cover: "./images/song-1-cover.jpg",
+        src: "./audio/Powfu - running through the rain.mp3"
+    },
+
+    {
+        title: "Tired of wanting you",
+        cover: "./images/song-cover-4.jpeg",
+        src: "./audio/Tired of Wanting You.mp3"
+    },
+
+];
+
+let currentTrackIndex = 0;
+
 // --- Music Player Elements ---
+const titleTrack = document.querySelector('.song-title-track');
 const audio = document.getElementById('timelineAudio');
 const playBtn = document.getElementById('masterPlayBtn');
 const playIcon = document.getElementById('playBtnIcon');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const albumArt = document.querySelector('.album-art-square');
 const slider = document.getElementById('audioTimelineSlider');
 const progressTrack = document.getElementById('customProgressTrack');
 const currentTimeText = document.getElementById('currentTimeDisplay');
@@ -42,9 +74,62 @@ function formatTimeStrings(seconds) {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
 
-// --- 3. PLAYER INTERFACE UI STATES ---
+// --- ANIMATION CALCULATOR FOR OVERFLOWING TITLES ---
+function updateTitleAnimation() {
+    const metaContainer = document.querySelector('.player-meta-info');
+    const titleTrack = document.querySelector('.song-title-track');
 
-// Fired automatically when audio plays (Swaps icon to PAUSE ||)
+    if (!metaContainer || !titleTrack) return;
+
+    // Reset state to accurately calculate width
+    titleTrack.classList.remove('is-scrolling');
+    titleTrack.style.transform = 'translateX(0)';
+
+    const overflowDistance = titleTrack.scrollWidth - metaContainer.clientWidth;
+
+    // Only enable animation if text extends beyond visible box
+    if (overflowDistance > 2) {
+        const moveDistance = -(overflowDistance + 10); // 10px extra padding
+        const duration = Math.max(5, overflowDistance / 18); // Dynamic speed scaling
+
+        titleTrack.style.setProperty('--scroll-distance', `${moveDistance}px`);
+        titleTrack.style.setProperty('--scroll-duration', `${duration}s`);
+        
+        titleTrack.classList.add('is-scrolling');
+    }
+}
+
+// --- 3. TRACK & PLAYLIST LOADER ---
+function loadTrack(index) {
+    const track = playlist[index];
+    if (!track) return;
+
+    // 1. Update Audio File
+    audio.src = track.src;
+
+    // 2. Update Album Art
+    if (albumArt) {
+        albumArt.style.backgroundImage = `url('${track.cover}')`;
+    }
+
+    // 3. Update Song Title Text
+    const titleSpans = document.querySelectorAll('.player-label');
+    titleSpans.forEach(span => {
+        span.textContent = track.title;
+    });
+
+    // 4. Recalculate title scroll distance for new track name
+    updateTitleAnimation();
+
+    // 5. Reset Timeline UI
+    slider.value = 0;
+    if (progressTrack) progressTrack.style.width = '0%';
+    currentTimeText.textContent = "0:00";
+}
+
+
+// --- 4. PLAYER INTERFACE UI STATES ---
+
 function setPlayState() {
     if (playIcon) {
         playIcon.innerHTML = `<path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
@@ -52,9 +137,11 @@ function setPlayState() {
         if (svg) svg.style.marginLeft = "0px";
     }
     playBtn.classList.add('playing');
+    
+    // Resume song title animation via CSS class
+    if (playerWidget) playerWidget.classList.add('playing');
 }
 
-// Fired automatically when audio pauses or ends (Swaps icon to PLAY ▶)
 function setPauseState() {
     if (playIcon) {
         playIcon.innerHTML = `<path fill="currentColor" d="M8 5v14l11-7z"/>`;
@@ -62,21 +149,48 @@ function setPauseState() {
         if (svg) svg.style.marginLeft = "2px";
     }
     playBtn.classList.remove('playing');
+    
+    // Pause song title animation via CSS class
+    if (playerWidget) playerWidget.classList.remove('playing');
 }
 
-// Bind native audio media events directly to the UI functions
+function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    const isPlaying = !audio.paused;
+    loadTrack(currentTrackIndex);
+    if (isPlaying) {
+        audio.play().catch(e => console.log("Playback error:", e));
+    }
+}
+
+function prevTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    const isPlaying = !audio.paused;
+    loadTrack(currentTrackIndex);
+    if (isPlaying) {
+        audio.play().catch(e => console.log("Playback error:", e));
+    }
+}
+
+
+// Native audio media events
 audio.addEventListener('play', setPlayState);
 audio.addEventListener('pause', setPauseState);
-audio.addEventListener('ended', setPauseState);
 
-// --- 4. UNIFIED ENTRANCE & AUDIO INITIALIZATION ---
+// Auto-advance to next song when current track ends
+audio.addEventListener('ended', () => {
+    nextTrack();
+    audio.play().catch(e => console.log("Auto-play error:", e));
+});
+
+// --- 5. UNIFIED ENTRANCE & AUDIO INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('entrance-overlay');
     const enterBtn = document.getElementById('enter-btn');
     const heartBtn = document.querySelector('.heart-btn');
 
-    // Force track reset to start
-    audio.currentTime = 0;
+    // Initialize first track
+    loadTrack(currentTrackIndex);
     setPauseState();
 
     if (enterBtn) {
@@ -84,7 +198,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (overlay) overlay.classList.add('hidden');
             if (playerWidget) playerWidget.classList.add('show');
 
-            // Play audio (native 'play' event will fire setPlayState automatically)
+            // Play initial track
             audio.play().catch(e => console.log("Playback error encountered:", e));
         });
     }
@@ -98,9 +212,34 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- 5. AUDIO EVENT TRACKING MECHANICS ---
+// --- 6. CONTROLS & TIMELINE SCRUBBING ---
 
-// Live Tracking Progress Sync
+// Manual play/pause button
+playBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+});
+
+// Skip buttons
+if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        nextTrack();
+    });
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        prevTrack();
+    });
+}
+
+// Live Progress Tracking Sync
 audio.addEventListener('timeupdate', () => {
     if (!userIsAdjustingSlider && audio.duration) {
         const percentage = (audio.currentTime / audio.duration) * 100;
@@ -115,7 +254,7 @@ audio.addEventListener('loadedmetadata', () => {
     durationTimeText.textContent = formatTimeStrings(audio.duration);
 });
 
-// Input Sync: User scrubbing adjustments live
+// User scrubbing timeline handle
 slider.addEventListener('input', () => {
     userIsAdjustingSlider = true;
     const currentPercentage = slider.value;
@@ -127,20 +266,10 @@ slider.addEventListener('input', () => {
     }
 });
 
-// Change Sync: Releasing timeline handles
+// Releasing timeline handle
 slider.addEventListener('change', () => {
     if (audio.duration) {
         audio.currentTime = (slider.value / 100) * audio.duration;
     }
     userIsAdjustingSlider = false;
-});
-
-// Manual play widget control button click
-playBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (audio.paused) {
-        audio.play();
-    } else {
-        audio.pause();
-    }
 });
