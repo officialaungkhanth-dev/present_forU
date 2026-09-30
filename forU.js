@@ -10,25 +10,51 @@ let groundtree = document.getElementById('groundtree');
 // --- Playlist Configuration ---
 const playlist = [
     {
-        title: "Days we had",
-        cover: "./images/song-1-cover.jpg",
+        title: "Ed Sheeran - Photograph",
+        cover: "./images/song-cover-1.jpeg",
+        src: "./audio/Ed Sheeran - Photograph.mp3"
+    },
+
+    {
+        title: "Powfu - Days we had",
+        cover: "./images/song-cover-2.jpg",
         src: "./audio/Days We Had.mp3"
     },
+
     {
-        title: "The fire in your eyes keeps me warm",
-        cover: "./images/song-1-cover.jpg",
+        title: "Isak Danielson - Always",
+        cover: "./images/song-cover.jpeg",
+        src: "./audio/Isak Danielson - Always (official video).mp3"
+    },
+
+    {
+        title: "Powfu - The fire in your eyes keeps me warm",
+        cover: "./images/song-cover-2.jpg",
         src: "./audio/Powfu, sleep.ing, Arvnd - the fire in your eyes keeps me warm (Official Audio) .mp3"
     },
+
     {
-        title: "Running through the rain",
-        cover: "./images/song-1-cover.jpg",
+        title: "Pamungkas - To the bone",
+        cover: "./images/song-cover-3.jpg",
+        src: "./audio/Pamungkas - To the bone (lyrics).mp3"
+    },
+
+    {
+        title: "Powfu - Running through the rain",
+        cover: "./images/song-cover-2.jpg",
         src: "./audio/Powfu - running through the rain.mp3"
     },
 
     {
-        title: "Tired of wanting you",
+        title: "Boywithuke - Tired of wanting you",
         cover: "./images/song-cover-4.jpeg",
         src: "./audio/Tired of Wanting You.mp3"
+    },
+
+    {
+        title: "Rush B - Dandelions",
+        cover: "./images/song-cover-5.jpg",
+        src: "./audio/Ruth B. - Dandelions (Audio).mp3"
     },
 
 ];
